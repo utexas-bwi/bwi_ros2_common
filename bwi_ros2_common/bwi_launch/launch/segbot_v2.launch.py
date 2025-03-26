@@ -44,6 +44,14 @@ def generate_launch_description():
     config_folder = os.path.join(get_package_share_directory('bwi_launch'), "config")
 
     # TF transformations
+    static_nav_kinect_to_camera_base_tf = Node(
+        package="tf2_ros",
+        executable="static_transform_publisher",
+        name="static_odom_transform",
+        output="log",
+        arguments=["--frame-id", "nav_kinect_link", "--child-frame-id", "camera_base"],
+    )  
+    
     static_odom_tf = Node(
         package="tf2_ros",
         executable="static_transform_publisher",
@@ -138,4 +146,5 @@ def generate_launch_description():
         navigation,
         robot_state_publisher,
         robot_joint_publisher,
+        static_nav_kinect_to_camera_base_tf,
     ])
